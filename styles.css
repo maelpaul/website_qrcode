@@ -1,0 +1,130 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #009bdf;
+    color: #000;
+    padding: 5px 20px;
+
+}
+
+.head {
+    display: flex;
+    font-size: 24px;
+    margin-left: 10px; 
+    align-items: center;
+
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    margin-left: 10px;
+}
+
+.nav-links li {
+    margin-right: 40px;
+    margin-left: 10px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #000;
+    font-size: 24px;
+}
+
+#logo {
+
+    width: 92px; 
+    height: 80px; 
+    margin: 0px 25px;
+
+}
+
+#page_title {
+    display: flex;
+    align-items: center;
+    font-size: 36px;
+}
+
+
+
+#myfooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    color: #fff;
+    padding: 0px 0px;
+    text-align: start;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+
+#logo_foot {
+
+    width: 69px; 
+    height: 60px; 
+    margin-left: 55px;
+    margin-right: 25px;
+
+
+}
+
+#title_foot {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+}
+
+#about {
+    padding: 0px 0px;
+}
+
+#about h1 {
+    font-size: 18px; 
+    color: #fff; 
+}
+
+
+#about h2 {
+    font-size: 15px; 
+    color: #fff; 
+}
+
+#logo_enseirb {
+    width: 35%;
+    height: auto;
+}
+
+#title {
+    text-align: start;
+    padding: 20px 40px;
+    background-color: #ffffff; /* Adjust the background color as needed */
+}
+
+#title h1 {
+    font-size: 36px; 
+    color: #333; 
+}
+
+
+#title h2 {
+    font-size: 20px; 
+    color: #333; 
+}
