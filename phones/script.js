@@ -2,7 +2,7 @@
 
 function loadFile() {
     // Chemin d'accès au fichier (à personnaliser)
-    const filePath = '../paquets.txt';
+    const filePath = '../data/ip.txt';
 
     fetch(filePath)
         .then(response => response.text())
