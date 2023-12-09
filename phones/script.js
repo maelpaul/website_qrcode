@@ -25,6 +25,21 @@ function displayFileContents(contents) {
         button.textContent = 'i';
         button.classList.add('section-button');
 
+        button.addEventListener('click', function() {
+            // Appel de la fonction d'action spécifique (à personnaliser)
+            const newPath = './info';
+
+            // Spécifiez le paramètre que vous souhaitez ajouter
+            const parameterName = 'phone_ip';
+            const parameterValue = String(line);
+
+            // Construire l'URL avec le paramètre
+            const newURL = `${newPath}?${parameterName}=${encodeURIComponent(parameterValue)}`;
+
+            // Rediriger vers la nouvelle page avec le paramètre
+            window.location.href = newURL;
+        });
+
         // Ajout du texte dans la div de la section
         const textDiv = document.createElement('div');
         textDiv.textContent = line;
@@ -38,5 +53,4 @@ function displayFileContents(contents) {
         // Ajout de la section à la sortie
         outputDiv.appendChild(sectionDiv);
     });
-    console.log(outputDiv);
 }

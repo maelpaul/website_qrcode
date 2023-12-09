@@ -1,7 +1,7 @@
 import socket
 from parser import receive_paquet
 
-host= '127.0.0.1'
+host= '172.20.10.10'
 port=12345
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

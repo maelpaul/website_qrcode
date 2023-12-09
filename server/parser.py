@@ -44,8 +44,8 @@ def process_gps(ip_addr, new_data):
         lines = file.readlines()
         for i in range(len(lines)):
             ips = lines[i].split(",")[0]
-            if ips == "'"+ip_addr+"'":
-                lines[i] = "'" + ip_addr+"','" + new_data + "'\n"
+            if ips == ip_addr:
+                lines[i] = ip_addr+"," + new_data + "\n"
                 already_here = True
                        
     if already_here : 
@@ -53,16 +53,16 @@ def process_gps(ip_addr, new_data):
             file.writelines(lines)
     else :
         with open('../data/gps.txt', 'a') as file:
-            file.write("'" + ip_addr+"','" + new_data + "'\n")
+            file.write(ip_addr+"," + new_data + "\n")
 
            
 
 
 def process_url(ip_addr, new_data):
     with open('../data/url.txt', 'a') as file:
-        file.write("'" + ip_addr+"','" + new_data + "'\n")
+        file.write(ip_addr+"," + new_data + "\n")
 
 
 def process_text(ip_addr, new_data):
     with open('../data/text.txt', 'a') as file:
-        file.write("'" + ip_addr+"','" + new_data + "'\n")
+        file.write(ip_addr+"," + new_data + "\n")
