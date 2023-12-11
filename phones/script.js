@@ -16,41 +16,46 @@ function displayFileContents(contents) {
 
     const lines = contents.split('\n');
     lines.forEach(function (line, index) {
-        // Création d'une div pour chaque section du fichier
-        const sectionDiv = document.createElement('div');
-        sectionDiv.classList.add('file-section' + (index)%2);
 
-        // Ajout d'un bouton à gauche du texte
-        const button = document.createElement('button');
-        button.textContent = 'i';
-        button.classList.add('section-button');
+        if (line !== "") {
 
-        button.addEventListener('click', function() {
-            // Appel de la fonction d'action spécifique (à personnaliser)
-            const newPath = './info';
+            // Création d'une div pour chaque section du fichier
+            const sectionDiv = document.createElement('div');
+            sectionDiv.classList.add('file-section' + (index)%2);
 
-            // Spécifiez le paramètre que vous souhaitez ajouter
-            const parameterName = 'phone_ip';
-            const parameterValue = String(line);
+            // Ajout d'un bouton à gauche du texte
+            const button = document.createElement('button');
+            button.textContent = 'i';
+            button.classList.add('section-button');
 
-            // Construire l'URL avec le paramètre
-            const newURL = `${newPath}?${parameterName}=${encodeURIComponent(parameterValue)}`;
+            button.addEventListener('click', function() {
+                // Appel de la fonction d'action spécifique (à personnaliser)
+                const newPath = './info';
 
-            // Rediriger vers la nouvelle page avec le paramètre
-            window.location.href = newURL;
-        });
+                // Spécifiez le paramètre que vous souhaitez ajouter
+                const parameterName = 'phone_ip';
+                const parameterValue = String(line);
 
-        // Ajout du texte dans la div de la section
-        const textDiv = document.createElement('div');
-        textDiv.textContent = line;
+                // Construire l'URL avec le paramètre
+                const newURL = `${newPath}?${parameterName}=${encodeURIComponent(parameterValue)}`;
 
-        textDiv.classList.add('line-text');
+                // Rediriger vers la nouvelle page avec le paramètre
+                window.location.href = newURL;
+            });
 
-        // Ajout du bouton et du texte à la div de la section
-        sectionDiv.appendChild(button);
-        sectionDiv.appendChild(textDiv);
+            // Ajout du texte dans la div de la section
+            const textDiv = document.createElement('div');
+            textDiv.textContent = line;
 
-        // Ajout de la section à la sortie
-        outputDiv.appendChild(sectionDiv);
+            textDiv.classList.add('line-text');
+
+            // Ajout du bouton et du texte à la div de la section
+            sectionDiv.appendChild(button);
+            sectionDiv.appendChild(textDiv);
+
+            // Ajout de la section à la sortie
+            outputDiv.appendChild(sectionDiv);
+        }
+
     });
 }
