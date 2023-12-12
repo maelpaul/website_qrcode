@@ -1,5 +1,8 @@
 
 // get the IP address from the previous page display the data related to this phon
+
+
+
 function getParameters() {
     const urlParams = new URLSearchParams(window.location.search);
     
@@ -18,6 +21,18 @@ function getParameters() {
 
 
 // --------------- manage the data dealing with the location ------------
+
+
+function isTooClose(locList, newLoc) {
+
+    for (var i=0; i<locList.length; i++) {
+        if (Math.abs(newLoc.latitude - locList[i].latitude) < 0.001 && Math.abs(newLoc.longitude - locList[i].longitude) < 0.001) {
+            return true;
+        }
+    }
+    return false;
+}
+
 async function initMap(param1) {
 
     const locationData = await extractLocationByIpAddress(param1);
@@ -25,18 +40,59 @@ async function initMap(param1) {
     var longitude;
     var date;
 
-    if (locationData === null) {
+
+    var map;
+    var marker;
+
+    var redIcon = L.icon({
+        iconUrl: '../../images/redping.png', // Replace with the path to your icon file
+        iconSize: [28, 41], // Size of the icon
+        iconAnchor: [14, 41], // Point of the icon which will correspond to marker's location
+        popupAnchor: [0, -35] // Point from which the popup should open relative to the iconAnchor
+    });
+    var blueIcon = L.icon({
+        iconUrl: '../../images/blueping.png', // Replace with the path to your icon file
+        iconSize: [28, 41], // Size of the icon
+        iconAnchor: [14, 41], // Point of the icon which will correspond to marker's location
+        popupAnchor: [0, -35] // Point from which the popup should open relative to the iconAnchor
+    });
+    
+
+    if (locationData.length === 0) {
         latitude = 0.0;
         longitude = 0.0;
         date = "1/1/1";
+
+        map = L.map('map').setView([latitude, longitude], 13);
+        marker = L.marker([latitude, longitude], {icon: redIcon}).addTo(map);
+        marker.bindPopup("<b>No position found</b><br>").openPopup();
+
+
     } else {
-        latitude = parseFloat(locationData.latitude);
-        longitude = parseFloat(locationData.longitude);
-        date = locationData.date;
+        map = L.map('map').setView([parseFloat(locationData[locationData.length-1].latitude), parseFloat(locationData[locationData.length-1].longitude)], 13);
+        var printLocList = [];
+        for (var i =locationData.length-1; i>= 0; i--) {
+            latitude = parseFloat(locationData[i].latitude);
+            longitude = parseFloat(locationData[i].longitude);
+            date = locationData[i].date;
+
+            if (!isTooClose(printLocList, {latitude, longitude})) {
+
+                printLocList.push({latitude, longitude});
+
+                if (i === locationData.length-1) {
+                    marker = L.marker([latitude, longitude], {icon: redIcon}).addTo(map);
+                    marker.bindPopup("<b>Last position<br>On "+date+"</b><br>("+latitude+","+longitude+")").openPopup();
+                } else {
+                    marker = L.marker([latitude, longitude], {icon: blueIcon}).addTo(map);
+
+                    marker.bindPopup("<b>Position<br>On "+date+"</b><br>("+latitude+","+longitude+")").closePopup();
+                }
+            }
+        }
     }
 
 
-    var map = L.map('map').setView([latitude, longitude], 13);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -44,15 +100,6 @@ async function initMap(param1) {
     }).addTo(map);
     
 
-
-    var marker = L.marker([latitude, longitude]).addTo(map);
-
-    if (locationData === null ) {
-        marker.bindPopup("<b>No position found</b><br>").openPopup();
-
-    } else {
-        marker.bindPopup("<b>Last position<br>On "+date+"</b><br>("+latitude+","+longitude+")").openPopup();
-    }
     var popup = L.popup();
 
     function onMapClick(e) {
@@ -84,6 +131,8 @@ async function extractLocationByIpAddress(ipAddress) {
     const fileContent = await response.text();
     const lines = fileContent.split('\n');
 
+    var locList = [];
+
     for (const line of lines) {
         const [ip, gpsInfo] = line.split(',');
 
@@ -102,16 +151,14 @@ async function extractLocationByIpAddress(ipAddress) {
                 const latitude = gpsParts[0];
                 const longitude = gpsParts[1];
                 const date = gpsParts[2];
-                return { latitude, longitude, date };
+                locList.push({ latitude, longitude, date });
             } else {
                 console.error('Invalid gpsInfo format:', gpsInfo);
-                return null;
             }
         }
     }
 
-    console.error('IP address not found:', ipAddress);
-    return null;
+    return locList;
 }
 
 
@@ -124,7 +171,6 @@ async function listUrl(ipAddress) {
 
     const listUrl = await extractUrlByIpAddress(ipAddress);
     if (listUrl.length === 0) {
-        console.log("pas d url");
         const sectionDiv = document.createElement('div');
         sectionDiv.classList.add('file-section0');
 
@@ -138,7 +184,6 @@ async function listUrl(ipAddress) {
 
 
         listUrl.forEach(function (url, index) {
-            console.log(url);
             // Création d'une div pour chaque section du fichier
             const sectionDiv = document.createElement('div');
             sectionDiv.classList.add('file-section' + (index)%2);
