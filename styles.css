@@ -1,4 +1,4 @@
-/* styles.css */
+/* CSS for the main webpage */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -115,7 +115,7 @@ header {
 #title {
     text-align: start;
     padding: 20px 40px;
-    background-color: #ffffff; /* Adjust the background color as needed */
+    background-color: #ffffff; 
 }
 
 #title h1 {

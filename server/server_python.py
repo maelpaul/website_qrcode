@@ -1,5 +1,7 @@
+# Server listening for the packets from the corrupted phones
+
 import socket
-from parser import receive_paquet
+from parser import receive_packet
 
 host= '172.20.10.10'
 port=12345
@@ -9,16 +11,16 @@ server_socket.bind((host, port))
 
 server_socket.listen(5)
 
-print("Attente de connexion...")
+print("Waiting for connections...")
 
 
 while (True):
     client_socket, addr = server_socket.accept()
 
-    print("Connexion établie avec ", addr)
+    print("Connection set with ", addr)
     data = client_socket.recv(1024)
-    receive_paquet(addr, data)
-    print(f"Reçu de {addr[0]}")
+    receive_packet(addr, data)
+    print(f"Received from {addr[0]}")
 
 
 

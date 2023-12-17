@@ -1,5 +1,5 @@
 
-// get the IP address from the previous page display the data related to this phon
+// get the id from the previous page display the data related to the phone
 
 
 
@@ -7,7 +7,7 @@ function getParameters() {
     const urlParams = new URLSearchParams(window.location.search);
     
     // Récupérer les valeurs des paramètres
-    const param1 = urlParams.get('phone_ip');
+    const param1 = urlParams.get('phone_id');
 
     const resultPhrase = "Information about phone " + param1;
     const resultParagraph = document.createElement('h1');
@@ -35,7 +35,7 @@ function isTooClose(locList, newLoc) {
 
 async function initMap(param1) {
 
-    const locationData = await extractLocationByIpAddress(param1);
+    const locationData = await extractLocationByID(param1);
     var latitude;
     var longitude;
     var date;
@@ -45,16 +45,16 @@ async function initMap(param1) {
     var marker;
 
     var redIcon = L.icon({
-        iconUrl: '../../images/redping.png', // Replace with the path to your icon file
-        iconSize: [28, 41], // Size of the icon
-        iconAnchor: [14, 41], // Point of the icon which will correspond to marker's location
-        popupAnchor: [0, -35] // Point from which the popup should open relative to the iconAnchor
+        iconUrl: '../../images/redping.png', 
+        iconSize: [28, 41], 
+        iconAnchor: [14, 41], 
+        popupAnchor: [0, -35] 
     });
     var blueIcon = L.icon({
-        iconUrl: '../../images/blueping.png', // Replace with the path to your icon file
-        iconSize: [28, 41], // Size of the icon
-        iconAnchor: [14, 41], // Point of the icon which will correspond to marker's location
-        popupAnchor: [0, -35] // Point from which the popup should open relative to the iconAnchor
+        iconUrl: '../../images/blueping.png', 
+        iconSize: [28, 41], 
+        iconAnchor: [14, 41], 
+        popupAnchor: [0, -35] 
     });
     
 
@@ -124,7 +124,7 @@ async function initMap(param1) {
 
 
     
-async function extractLocationByIpAddress(ipAddress) {
+async function extractLocationByID(id) {
 
 
     const response = await fetch('../../data/gps.txt');
@@ -134,13 +134,12 @@ async function extractLocationByIpAddress(ipAddress) {
     var locList = [];
 
     for (const line of lines) {
-        const [ip, gpsInfo] = line.split(',');
+        const [ids, gpsInfo] = line.split(',');
 
-        const trimmedIp = ip.trim();
+        const trimmedId = ids.trim();
 
-        if (trimmedIp === ipAddress) {
+        if (trimmedId === id) {
 
-            // Extract latitude, longitude, and date without using regex
             const gpsParts = gpsInfo
                 .replace('gps : (', '')
                 .replace(')', '')
@@ -164,12 +163,12 @@ async function extractLocationByIpAddress(ipAddress) {
 
 // --------------- manage the data dealing with the url scanned ----------------
 
-async function listUrl(ipAddress) {
+async function listUrl(id) {
 
     const outputDiv = document.getElementById('outputurl');
     outputDiv.innerHTML = '';
 
-    const listUrl = await extractUrlByIpAddress(ipAddress);
+    const listUrl = await extractUrlByID(id);
     if (listUrl.length === 0) {
         const sectionDiv = document.createElement('div');
         sectionDiv.classList.add('file-section0');
@@ -184,7 +183,7 @@ async function listUrl(ipAddress) {
 
 
         listUrl.forEach(function (url, index) {
-            // Création d'une div pour chaque section du fichier
+
             const sectionDiv = document.createElement('div');
             sectionDiv.classList.add('file-section' + (index)%2);
     
@@ -194,12 +193,7 @@ async function listUrl(ipAddress) {
             linkElement.style.color = "black";
             linkElement.style.fontSize = "20px";
     
-    
-            // Ajout du bouton et du texte à la div de la section
-    
             sectionDiv.appendChild(linkElement);
-    
-            // Ajout de la section à la sortie
             outputDiv.appendChild(sectionDiv);
     
     
@@ -208,7 +202,7 @@ async function listUrl(ipAddress) {
 
 }
 
-async function extractUrlByIpAddress(ipAddress) {
+async function extractUrlByID(id) {
 
 
     const response = await fetch('../../data/url.txt');
@@ -216,11 +210,11 @@ async function extractUrlByIpAddress(ipAddress) {
     const lines = fileContent.split('\n');
     var urlList = [];
     for (const line of lines) {
-        const [ip, urlInfo] = line.split(',');
+        const [ids, urlInfo] = line.split(',');
 
-        const trimmedIp = ip.trim();
+        const trimmedId = ids.trim();
 
-        if (trimmedIp === ipAddress) {
+        if (trimmedId === id) {
 
             const urlPart = urlInfo
                 .replace('url : ', '')
@@ -236,9 +230,7 @@ async function extractUrlByIpAddress(ipAddress) {
 
 
 
-
-
-// Appeler la fonction lors du chargement de la page
+// call these functions when loading the page
 window.onload = getParameters;
 
 
