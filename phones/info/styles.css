@@ -179,3 +179,16 @@ header {
 .line-text {
     font-size: 20px;
 }
+
+
+.video-container {
+    display: flex;
+    justify-content: center; /* Centers horizontally in the container */
+    margin: 0; /* Adjust or remove as needed */
+}
+
+#myVideo {
+    border: 1px solid black; /* Example styling */
+    max-width: 100%;
+    height: auto;
+}

@@ -17,6 +17,7 @@ function getParameters() {
 
     initMap(param1);
     listUrl(param1);
+    initVideoReader(param1);
 }
 
 
@@ -230,12 +231,36 @@ async function extractUrlByID(id) {
 
 
 
-// call these functions when loading the page
+// call the functions above when loading the page
 window.onload = getParameters;
 
 
+// display the video reader 
 
 
+function initVideoReader(param1) {
+    var videoPlayer = document.getElementById('myVideo');
+    var videoError = document.getElementById('videoError');
+    var videoFileName = "../../video/"+param1+".mp4"; 
+    
+    videoPlayer.src = videoFileName;
 
+    videoPlayer.addEventListener('error', function(e) {
+        
+        if (videoPlayer.error.code == videoPlayer.error.MEDIA_ERR_SRC_NOT_SUPPORTED){
+            errorText = "No video found for this phone";
+        }
+       
+        videoError.innerHTML = '';
 
+        videoError.classList.add('file-section0');
 
+        const textDiv = document.createElement('div');
+        textDiv.textContent = errorText;
+        textDiv.classList.add('line-text');
+
+        videoError.appendChild(textDiv);
+        videoError.style.display = 'block';
+        videoPlayer.style.display = 'none'; 
+    }); 
+}
