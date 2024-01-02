@@ -192,3 +192,15 @@ header {
     max-width: 100%;
     height: auto;
 }
+#downloadButton {
+    background-color: #f0f0f0;
+    border: none; 
+    font-size: 20px;
+    margin: 4px 2px;
+    display: inline-block;
+    padding: 10px 20px;
+
+}
+#downloadButton:hover {
+    background-color: #fafafa;
+}

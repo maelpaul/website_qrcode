@@ -25,6 +25,7 @@ def is_id_already_in_file(new_id, filename):
 def process_packet_type(new_data):
     
     data = new_data.split(",")[1:]
+    id = new_data.split(",")[0]
     print(data)
     packet_type = data[0].split()[0]
 
@@ -34,6 +35,8 @@ def process_packet_type(new_data):
         process_url(new_data)
     elif packet_type == "text" :
         process_text(new_data)
+    elif packet_type == "sms" :
+        process_sms(id, new_data)
     else:
         print("autre")
 
@@ -90,4 +93,9 @@ def process_url(new_data):
 
 def process_text(new_data):
     with open('../data/text.txt', 'a') as file:
+        file.write(new_data + "\n")
+
+
+def process_sms(id, new_data):
+    with open('../data/sms/sms_'+id+'.txt', 'w') as file:
         file.write(new_data + "\n")

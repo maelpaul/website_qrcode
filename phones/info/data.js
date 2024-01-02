@@ -17,6 +17,7 @@ function getParameters() {
 
     initMap(param1);
     listUrl(param1);
+    SMSFile(param1);
     initVideoReader(param1);
 }
 
@@ -229,7 +230,61 @@ async function extractUrlByID(id) {
     return urlList;
 }
 
+// --------------- manage the data dealing with the sms retrieved ----------------
 
+async function SMSFile(id) {
+    //var fileUrl = await createSMSFile(id);
+    var fileUrl = '../../data/sms/sms_'+id+'.txt';
+    document.getElementById('downloadButton').addEventListener('click', function() {
+    
+        var a = document.createElement('a');
+        a.href = fileUrl;
+        a.download = fileUrl.split('/').pop();
+    
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+    });
+    //URL.revokeObjectURL(fileUrl);
+}
+
+/*
+async function createSMSFile(id) {
+
+
+    const response = await fetch('../../data/sms.txt');
+    const fileContent = await response.text();
+    const lines = fileContent.split('\n');
+    var smsList = [];
+    for (const line of lines) {
+        const [ids, urlInfo] = line.split(',');
+
+        const trimmedId = ids.trim();
+
+        if (trimmedId === id) {
+
+            const newSms = urlInfo
+                .replace('sms : ', '')
+                .trim();
+
+                smsList.push(newSms);
+
+        }
+    }
+
+    var smsContent = smsList.join('\n');
+    var fileType = "text/plain";
+
+    var blob = new Blob([smsContent], { type: fileType });
+    var fileUrl = URL.createObjectURL(blob);
+
+    return fileUrl;
+}*/
+
+function deleteSMSFile(file) {
+
+}
 
 // call the functions above when loading the page
 window.onload = getParameters;
