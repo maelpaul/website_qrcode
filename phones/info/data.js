@@ -1,12 +1,9 @@
 
-// get the id from the previous page display the data related to the phone
-
-
+// get the id from the previous page and display the data related to the phone
 
 function getParameters() {
     const urlParams = new URLSearchParams(window.location.search);
     
-    // Récupérer les valeurs des paramètres
     const param1 = urlParams.get('phone_id');
 
     const resultPhrase = "Information about phone " + param1;
@@ -233,7 +230,6 @@ async function extractUrlByID(id) {
 // --------------- manage the data dealing with the sms retrieved ----------------
 
 async function SMSFile(id) {
-    //var fileUrl = await createSMSFile(id);
     var fileUrl = '../../data/sms/sms_'+id+'.txt';
     document.getElementById('downloadButton').addEventListener('click', function() {
     
@@ -246,52 +242,10 @@ async function SMSFile(id) {
         document.body.removeChild(a);
 
     });
-    //URL.revokeObjectURL(fileUrl);
 }
 
-/*
-async function createSMSFile(id) {
 
-
-    const response = await fetch('../../data/sms.txt');
-    const fileContent = await response.text();
-    const lines = fileContent.split('\n');
-    var smsList = [];
-    for (const line of lines) {
-        const [ids, urlInfo] = line.split(',');
-
-        const trimmedId = ids.trim();
-
-        if (trimmedId === id) {
-
-            const newSms = urlInfo
-                .replace('sms : ', '')
-                .trim();
-
-                smsList.push(newSms);
-
-        }
-    }
-
-    var smsContent = smsList.join('\n');
-    var fileType = "text/plain";
-
-    var blob = new Blob([smsContent], { type: fileType });
-    var fileUrl = URL.createObjectURL(blob);
-
-    return fileUrl;
-}*/
-
-function deleteSMSFile(file) {
-
-}
-
-// call the functions above when loading the page
-window.onload = getParameters;
-
-
-// display the video reader 
-
+// ------------------------ display the video reader ---------------------------
 
 function initVideoReader(param1) {
     var videoPlayer = document.getElementById('myVideo');
@@ -319,3 +273,11 @@ function initVideoReader(param1) {
         videoPlayer.style.display = 'none'; 
     }); 
 }
+
+
+
+// ------------ call the functions above when loading the page ------------
+window.onload = getParameters;
+
+
+

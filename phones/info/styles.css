@@ -183,12 +183,12 @@ header {
 
 .video-container {
     display: flex;
-    justify-content: center; /* Centers horizontally in the container */
-    margin: 0; /* Adjust or remove as needed */
+    justify-content: center; 
+    margin: 0; 
 }
 
 #myVideo {
-    border: 1px solid black; /* Example styling */
+    border: 1px solid black; 
     max-width: 100%;
     height: auto;
 }
