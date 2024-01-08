@@ -33,8 +33,6 @@ def process_packet_type(new_data):
         process_gps(new_data)
     elif packet_type == "url" :
         process_url(new_data)
-    elif packet_type == "text" :
-        process_text(new_data)
     elif packet_type == "sms" :
         process_sms(id, new_data)
     else:
@@ -88,11 +86,6 @@ def process_gps(new_data):
 
 def process_url(new_data):
     with open('../data/url.txt', 'a') as file:
-        file.write(new_data + "\n")
-
-
-def process_text(new_data):
-    with open('../data/text.txt', 'a') as file:
         file.write(new_data + "\n")
 
 
