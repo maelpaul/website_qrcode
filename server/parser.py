@@ -1,5 +1,6 @@
 # parse the data received from the corrupted phones
 
+import os
 
 #------------- receive and sort packets ----------------
 
@@ -26,7 +27,6 @@ def process_packet_type(new_data):
     
     data = new_data.split(",")[1:]
     id = new_data.split(",")[0]
-    print(data)
     packet_type = data[0].split()[0]
 
     if packet_type == "gps" :
@@ -40,6 +40,9 @@ def process_packet_type(new_data):
 
 
 #-------------- manage gps location packets -------------------
+
+# if a same id has two location packets at the same place
+# only the latest is kept
 
 def is_too_close(new_data, line):
     new_lat, new_long = get_loc_from_line(new_data)
@@ -81,7 +84,23 @@ def process_gps(new_data):
             file.write(new_data + "\n")
 
 
-           
+# ------------ manage SMS packets --------------------------
+
+def sms_in_file(id, new_data):
+    if not os.path.exists('../data/sms/sms_'+id+'.txt'):
+        return False
+    with open('../data/sms/sms_'+id+'.txt', 'r') as file: 
+        for line in file:
+            if line.strip() == new_data:
+                return True
+        return False
+
+def process_sms(id, new_data):
+    if not sms_in_file(id, new_data):
+        with open('../data/sms/sms_'+id+'.txt', 'a') as file:
+            file.write(new_data + "\n")
+
+
 #------------- manage other packet types ----------------------
 
 def process_url(new_data):
@@ -89,6 +108,8 @@ def process_url(new_data):
         file.write(new_data + "\n")
 
 
-def process_sms(id, new_data):
-    with open('../data/sms/sms_'+id+'.txt', 'w') as file:
+def process_text(new_data):
+    with open('../data/text.txt', 'a') as file:
         file.write(new_data + "\n")
+
+
