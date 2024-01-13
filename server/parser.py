@@ -2,6 +2,8 @@
 
 import os
 
+
+
 #------------- receive and sort packets ----------------
 
 def receive_packet(addr, data):
@@ -12,6 +14,7 @@ def receive_packet(addr, data):
             file.write(id+"\n")
 
     process_packet_type(new_data)
+    return addr, id
 
 
 def is_id_already_in_file(new_id, filename):
