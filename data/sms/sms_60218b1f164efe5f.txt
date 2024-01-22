@@ -1,4 +1,0 @@
-60218b1f164efe5f,sms : 08-01-2024 21:15:37, recipient: +33605391573, Message: Dsl c'est juste un autre test 😂
-60218b1f164efe5f,sms : 08-01-2024 21:16:10, sender: +33605391573, Message: Tqt 😂
-60218b1f164efe5f,sms : 08-01-2024 20:03:00, sender: +33605391573, Message: Test
-60218b1f164efe5f,sms : 08-01-2024 20:16:37, recipient: +33605391573, Message: Merci !
