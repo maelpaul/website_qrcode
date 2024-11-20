@@ -16,4 +16,4 @@ python3 -m http.server 8000
 - In another terminal, go to the server folder and launch server:
 python3 server.py
 
-- Use the website alongside the app. If you have some problems when refreshing, clear your internet browser's cache and then refresh the page.
+- Use the website (http://localhost:8000) alongside the app. If you have some problems when refreshing, clear your internet browser's cache and then refresh the page.
