@@ -6,7 +6,7 @@ import os
 
 from parser import receive_packet
 
-host= '192.168.205.133'
+host='192.168.1.32'
 port1=12345
 port2=12346
 

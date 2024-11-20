@@ -4,3 +4,4 @@ data/url.txt
 data/sms/*.txt
 server/ip_id.txt
 video/*.mp4
+server/__pycache__/
